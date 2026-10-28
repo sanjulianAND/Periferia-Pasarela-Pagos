@@ -1,0 +1,56 @@
+{
+  "version": "2026-10-14",
+  "effectiveFrom": "2026-10-14T00:00:00.000Z",
+  "products": [
+    {
+      "id": "software-design",
+      "name": "Diseno de software",
+      "skills": ["Discovery", "HU", "Estimacion", "Design System"],
+      "monthlyCredits": 250000000,
+      "prices": [
+        { "plan": "week", "unitAmount": 17300, "currency": "USD" },
+        { "plan": "month", "unitAmount": 75000, "currency": "USD" }
+      ]
+    },
+    {
+      "id": "software-construction",
+      "name": "Construccion de software",
+      "skills": ["Arquitectura", "Onboarding", "Planificacion", "Implementacion"],
+      "monthlyCredits": 500000000,
+      "prices": [
+        { "plan": "week", "unitAmount": 34600, "currency": "USD" },
+        { "plan": "month", "unitAmount": 150000, "currency": "USD" }
+      ]
+    },
+    {
+      "id": "quality",
+      "name": "Calidad",
+      "skills": ["Validacion", "QE"],
+      "monthlyCredits": 1000000000,
+      "prices": [
+        { "plan": "week", "unitAmount": 69200, "currency": "USD" },
+        { "plan": "month", "unitAmount": 300000, "currency": "USD" }
+      ]
+    },
+    {
+      "id": "infrastructure",
+      "name": "Infraestructura",
+      "skills": ["IaC"],
+      "monthlyCredits": 500000000,
+      "prices": [
+        { "plan": "week", "unitAmount": 34600, "currency": "USD" },
+        { "plan": "month", "unitAmount": 150000, "currency": "USD" }
+      ]
+    },
+    {
+      "id": "cybersecurity",
+      "name": "Ciberseguridad",
+      "skills": ["Ciberseguridad"],
+      "monthlyCredits": 500000000,
+      "prices": [
+        { "plan": "week", "unitAmount": 41500, "currency": "USD" },
+        { "plan": "month", "unitAmount": 180000, "currency": "USD" }
+      ]
+    }
+  ]
+}
