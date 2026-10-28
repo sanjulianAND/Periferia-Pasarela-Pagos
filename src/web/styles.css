@@ -41,6 +41,12 @@ aside .eyebrow { color: #347057; }
 .empty, .safe { color: #65746c; font-size: 13px; line-height: 1.6; }
 .safe { margin-top: 22px; padding-top: 18px; border-top: 1px solid #1320191c; }
 .notice { padding: 10px; color: #173e2d; background: #a5eec82e; border-radius: 8px; font: 12px "Cascadia Code", Consolas, monospace; overflow-wrap: anywhere; }
+.order-state { display: flex; justify-content: space-between; gap: 12px; margin-top: 18px; padding: 12px; color: #785f17; background: #ffe9a7; border-radius: 9px; font: 12px "Cascadia Code", Consolas, monospace; }
+.order-state.active { color: #164f35; background: #bff1d8; }
+.order-state.refunded { color: #6b3b47; background: #f3ccd6; }
+.account-state { margin-top: 18px; padding: 14px; border: 1px solid #1320191c; border-radius: 10px; }
+.account-state div { display: flex; justify-content: space-between; padding: 7px 0; color: #516057; font-size: 13px; }
+.account-state strong { color: #132019; }
 footer { margin-top: 46px; padding-top: 24px; border-top: 1px solid #ffffff17; color: #6f8178; font: 11px "Cascadia Code", Consolas, monospace; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 @media (max-width: 960px) { main { padding: 0 22px 28px; } .layout { grid-template-columns: 1fr; } aside { position: static; } }

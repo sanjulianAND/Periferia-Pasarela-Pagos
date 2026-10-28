@@ -408,7 +408,7 @@ erDiagram
 
 Tablas adicionales: `payment_customer`, `payment_method_ref` (unicamente ID tokenizado e identificador del proveedor; nunca PAN, CVV ni fecha de expiracion), `subscription_item`, `refund`, `credit_ledger_entry`, `outbox_event`, `dunning_case`, `reconciliation_run/item`, `provider_event_attempt` y `schema_migration`. Las relaciones con workers existentes se realizan mediante una `activation_key` y referencias a `order_item`; no se duplica el worker como entidad de pagos.
 
-Indices minimos: `UNIQUE(provider, provider_event_id)`, `UNIQUE(provider, provider_payment_id)`, `UNIQUE(account_id, idempotency_key_hash, operation)`, `UNIQUE(activation_key)`, indices `(account_id, created_at)`, `(status, next_attempt_at)` y `(provider, provider_subscription_id)`. Las FK, checks de cantidad positiva y moneda comun por pedido son obligatorias. DDL es idempotente, expand-only primero, y se aplica antes del codigo.
+Indices minimos: `UNIQUE(provider, provider_event_id)`, `UNIQUE(provider, provider_payment_id)`, `UNIQUE(account_id, idempotency_key_hash, operation)`, `UNIQUE(activation_key)`, indices `(account_id, created_at)`, `(status, next_attempt_at)` y `(provider, provider_subscription_id)`. Las FK, checks de cantidad positiva y moneda comun por pedido son obligatorias. El DDL usa migraciones versionadas expand-only, checksum y verificacion de drift, y se aplica antes del codigo.
 
 ### 4.3 Estados y transiciones
 
@@ -688,7 +688,7 @@ No se puntuan como "cumple" capacidades que solo aparecen de forma generica. La 
 | API | Bun + Hono + TypeScript | Alineado al backend; modulo de rutas/dominio/repositorios/adaptadores sin nuevo runtime. |
 | Validacion | Libreria de esquemas ya adoptada; si no existe, Zod | Un contrato runtime/TS en bordes. Dependencia solo si no hay equivalente. |
 | Proveedor | SDK oficial fijado por version cuando soporte Bun; si no, `fetch` firmado encapsulado | Reduce errores de firma/tipos; pruebas contractuales protegen incompatibilidad Bun. |
-| Datos | MySQL Azure, transacciones InnoDB, migraciones idempotentes existentes | Unico data owner, constraints e inbox/outbox durables. |
+| Datos | MySQL Azure, transacciones InnoDB, migraciones versionadas expand-only | Unico data owner, constraints e inbox/outbox durables; reintentos exactos validados por checksum. |
 | Asincrono | Procesador del backend + lease MySQL; Container Apps Job para schedules | Menor infraestructura inicial; Service Bus solo al demostrar necesidad. |
 | Hosting | Azure Static Web Apps/hosting estatico existente + Azure Container Apps | Coherencia Azure, escalado y Managed Identity. |
 | Secretos | Azure Key Vault | Rotacion, RBAC y auditoria. |
@@ -821,7 +821,7 @@ Escala: probabilidad e impacto `Baja/Media/Alta`. Duenos son roles propuestos.
 | Conciliacion no explica fees/FX/refunds | Media | Alta | Obtener reportes contractuales, modelo bruto/fee/neto/payout, cierre con excepciones. | Finanzas |
 | Dunning conservador acumula deuda | Media | Media | Limite/gracia versionada, dashboard aging y revision DP-5. | Negocio |
 | Datos personales retenidos de mas | Media | Alta | Minimizacion, cifrado, calendario de purga y DPIA/registro Ley 1581. | Privacidad |
-| Cambios de esquema rompen version anterior | Baja | Alta | Expand-contract, migracion idempotente, canary y ensayo rollback. | Ingenieria/DBA |
+| Cambios de esquema rompen version anterior | Baja | Alta | Expand-contract, checksum y deteccion de drift, canary y ensayo rollback. | Ingenieria/DBA |
 | Transferencias crean workers sin evidencia | Media | Alta | Flujo `EXTERNAL_SETTLEMENT`, doble control, referencia bancaria y auditoria. | Finanzas/Operacion |
 
 ## 14. Criterios de aceptacion de arquitectura

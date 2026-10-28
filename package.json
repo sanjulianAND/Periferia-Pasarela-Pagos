@@ -12,6 +12,7 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "tsx --test src/domain/checkout.test.ts src/api/app.test.ts",
+    "demo": "tsx scripts/demo.ts",
     "build": "tsc -p tsconfig.server.json && vite build",
     "start": "node dist/server/server.js"
   },
